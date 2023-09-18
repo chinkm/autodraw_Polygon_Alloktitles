@@ -21,5 +21,33 @@ fields.append(QgsField("Title Surveyed Area", QVariant.Double))
 
 layer.startEditing()
 layer.dataProvider().addAttributes(fields)
+layer.updateFields()
+
+polygon=[]
+geometries=[]
+
+for row in new_result:
+    for i in range(0, len(row)-1,2):
+        polygon.append([row[i], row[i+1]])
+        #polygon.append([QgsPointXY(row[i], row[i+1])])
+    #geometries.append(QgsGeometry.fromPolygonXY(polygon))
+    print(polygon)
+    polygon.clear()
+    
+'''    
+for i, geometry in enumerate(geometries):
+    feature=QgsFeature()
+    feature.setGeometry(geometry)
+    layer.dataProvider().addFeatures([feature])
+
+layer.commitChanges()
+
+QgsProject.instance().addMapLayer(layer)
+'''
+    
+        
+
+
+
 
     
