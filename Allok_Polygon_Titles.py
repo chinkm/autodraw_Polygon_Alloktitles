@@ -4,14 +4,14 @@ from qgis.core import QgsVectorLayer, QgsField, QgsFeature, QgsGeometry, QgsProj
 from PyQt5.QtCore import QVariant
 
 #Read Coordinate Point retrieved from JTUWMA
-with open("I:\Allok_Geopackage_Project\GIS_Allok_Titles_Project\Land Title QGIS\Group's Land Statement.csv", encoding="utf-8-sig",newline="") as data:
+with open("E:\Allok_Geopackage_Project\GIS_Allok_Titles_Project\Land Title QGIS\Group's Land Statement.csv", encoding="utf-8-sig",newline="") as data:
     result=list(csv.reader(data,delimiter=","))
 new_result=[]
 for i in result:
     new_result.append(list(filter(None, i)))
 
 #Read Land Titles' details based on land titles
-with open("I:\Allok_Geopackage_Project\GIS_Allok_Titles_Project\Land Title QGIS\Group's Land Details.csv", encoding="utf-8-sig",newline="") as data1:
+with open("E:\Allok_Geopackage_Project\GIS_Allok_Titles_Project\Land Title QGIS\Group's Land Details.csv", encoding="utf-8-sig",newline="") as data1:
     result1=list(csv.reader(data1, delimiter=","))
 new_result1=[]
 for j in result1:
@@ -65,15 +65,13 @@ for row1 in layer.getFeatures():
     #Fill Other columns with expressions in attribute table
     expression1= QgsExpression('round($area * 0.000247,2)')
     expression2=QgsExpression('to_int(right("Title Expiry",4))- to_int(left(now(),4))')
-    expression3=QgsExpression('to_double("Title Surveyed Area")-to_double("GIS Surveyed Area")')
     context=QgsExpressionContext()
     context.appendScopes(QgsExpressionContextUtils.globalProjectLayerScopes(layer))
     context.setFeature(row1)
     row1['GIS Surveyed Area']=expression1.evaluate(context)
     row1['Title Duration']=expression2.evaluate(context)
-    row1['Variance Area']=expression3.evaluate(context)
     
-            
+                        
     layer.updateFeature(row1)
     n+=1
     
@@ -81,8 +79,27 @@ layer.commitChanges()
 
 QgsProject.instance().addMapLayer(layer)
 
-    
+#Update/Edit field ["Variance Area"] caused it could not direct input expression from QgsExpression
+with edit(layer):
+    for row1 in layer.getFeatures():
+        row1["Variance Area"]=round(row1["Title Surveyed Area"] - row1["GIS Surveyed Area"],2)
+        layer.updateFeature(row1)
         
+layer.commitChanges()
+
+QgsProject.instance().addMapLayer(layer)
+
+'''
+data_list = []
+for field in layer.fields():
+    field_name = field.name()
+    field_type = field.typeName()
+
+    data = field_name, field_type
+    data_list.append(data)    
+    
+print(data_list)
+'''        
 
 
 
