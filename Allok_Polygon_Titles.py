@@ -4,14 +4,14 @@ from qgis.core import QgsVectorLayer, QgsField, QgsFeature, QgsGeometry, QgsProj
 from PyQt5.QtCore import QVariant
 
 #Read Coordinate Point retrieved from JTUWMA
-with open("E:\Allok_Geopackage_Project\GIS_Allok_Titles_Project\Land Title QGIS\Group's Land Statement.csv", encoding="utf-8-sig",newline="") as data:
+with open("E:\xxxxx_Geopackage_Project\GIS_xxxxx_Titles_Project\Land Title QGIS\Group's Land Statement.csv", encoding="utf-8-sig",newline="") as data:
     result=list(csv.reader(data,delimiter=","))
 new_result=[]
 for i in result:
     new_result.append(list(filter(None, i)))
 
 #Read Land Titles' details based on land titles
-with open("E:\Allok_Geopackage_Project\GIS_Allok_Titles_Project\Land Title QGIS\Group's Land Details.csv", encoding="utf-8-sig",newline="") as data1:
+with open("E:\xxxxx_Geopackage_Project\GIS_xxxxx_Titles_Project\Land Title QGIS\Group's Land Details.csv", encoding="utf-8-sig",newline="") as data1:
     result1=list(csv.reader(data1, delimiter=","))
 new_result1=[]
 for j in result1:
