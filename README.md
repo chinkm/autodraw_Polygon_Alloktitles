@@ -37,3 +37,7 @@ Improved accuracy in land title area calculations.
 Provided clear variance analysis between surveyed and GIS areas.
 
 Enabled faster visualization and reporting for estate land management.
+
+🔗 [LinkedIn](https://www.linkedin.com/in/chin-kee-ming-588685148)
+💻 [GitHub](https://github.com/chinkm/Power-BI-Projects)
+
